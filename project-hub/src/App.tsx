@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
+import { useAppUpdater } from '@/hooks/useAppUpdater'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { Dashboard } from '@/pages/Dashboard'
@@ -12,6 +13,7 @@ import { Standup } from '@/pages/Standup'
 import { Notes } from '@/pages/Notes'
 
 function App() {
+  useAppUpdater()
   return (
     <BrowserRouter>
       <Routes>

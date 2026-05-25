@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "StashHub",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "identifier": "com.alphachong.stashhub",
   "build": {
     "frontendDist": "../dist",
@@ -42,7 +42,7 @@
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDY1OUUzMTVDQUY0QTcwOQpSV1FKcC9US0ZlTlpCanBvcW5IS1JJY0dqZ1dMOE93bUdMZS9meGFnZWYwRUUzU0d4Yis2bHJBeQo=",
       "endpoints": [
-        "REPLACE_WITH_LATEST_JSON_URL"
+        "https://github.com/alpha031117/stash-hub/releases/latest/download/latest.json"
       ]
     }
   }

@@ -87,7 +87,7 @@ export const useStandupStore = create<StandupState>()(
       version: 2,
       migrate: (persisted, version) => {
         if (!persisted || typeof persisted !== 'object') {
-          return { configByScope: {} } as StandupState
+          return { configByScope: {} } as unknown as StandupState
         }
         if (version >= 2) return persisted as StandupState
         const legacy = persisted as LegacyState
@@ -101,7 +101,7 @@ export const useStandupStore = create<StandupState>()(
         }
         return {
           configByScope: { [STANDUP_GLOBAL_SCOPE]: migrated },
-        } as StandupState
+        } as unknown as StandupState
       },
     },
   ),
