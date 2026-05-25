@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "notes": "First update-enabled release. Notes editor, image
+  uploads via Supabase, paste-from-clipboard.","pub_date": "2026-05-25T00:00:00Z",
+    "platforms": {
+        "windows-x86_64": {
+            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRSnAvVEtGZU5aQmc0cHVaOWtKTkxOSU0wQ3h1THVMQVQ5ZzdFV3FLOE1XTGsvZGd2M1ZPeSsxd1R1amYvNmJuQVJtNWYxbDdNQ3NuU3YzNG1yVkY0RnFNNEhaRnJ1UmdvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5Njg5ODA0CWZpbGU6U3Rhc2hIdWJfMC4yLjBfeDY0LXNldHVwLmV4ZQo0ZnRlTWJzUWxzN1BPMGpxUHFwVW5ZTFFpbVYzMVMzM013OWtKSFFqSUFEdE5zVXkrdUZ3cCtvNTB5aEFSOTYyL0dCSTB2d1FPYkZ6WSt4SG1qdk1Bdz09Cg==",
+            "url": "https://github.com/alpha031117/stash-hub/releases/
+  download/v0.2.0/StashHub_0.2.0_x64-setup.exe"
+        }
+    }
+}
