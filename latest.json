@@ -1,12 +1,11 @@
 {
-    "version": "0.2.0",
-    "notes": "First update-enabled release. Notes editor, image
-  uploads via Supabase, paste-from-clipboard.","pub_date": "2026-05-25T00:00:00Z",
-    "platforms": {
-        "windows-x86_64": {
-            "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRSnAvVEtGZU5aQmc0cHVaOWtKTkxOSU0wQ3h1THVMQVQ5ZzdFV3FLOE1XTGsvZGd2M1ZPeSsxd1R1amYvNmJuQVJtNWYxbDdNQ3NuU3YzNG1yVkY0RnFNNEhaRnJ1UmdvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5Njg5ODA0CWZpbGU6U3Rhc2hIdWJfMC4yLjBfeDY0LXNldHVwLmV4ZQo0ZnRlTWJzUWxzN1BPMGpxUHFwVW5ZTFFpbVYzMVMzM013OWtKSFFqSUFEdE5zVXkrdUZ3cCtvNTB5aEFSOTYyL0dCSTB2d1FPYkZ6WSt4SG1qdk1Bdz09Cg==",
-            "url": "https://github.com/alpha031117/stash-hub/releases/
-  download/v0.2.0/StashHub_0.2.0_x64-setup.exe"
-        }
+  "version": "0.4.0",
+  "notes": "Claude Code page rebuilt around registered projects: only Mavis-registered folders appear, Memory tab shows Summary / Notes (Guardrails) / Progress, markdown renders properly, Activity tab removed. New Claude Code integration card in Settings with real connection check.",
+  "pub_date": "2026-05-26T00:00:00Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRSnAvVEtGZU5aQmxzRnFoT2ovSXhzVFk3aENwVG5ESjZHM1hLQXJJQXlVR1BkR21QQ2NUV3d4VW5EMUd1K0paVmkrSC9WMU9FUWZ2YmJaK2R4ZDFHNGNiZTJsV0thS3dRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc5NzY3ODc1CWZpbGU6U3Rhc2hIdWJfMC40LjBfeDY0LXNldHVwLmV4ZQp3TTRCQURXdVNqNmJLL3I2RndIRVpJODF6ZDhsOGhrakF2VCtvN01CL1Nsd29zT0x2c0J1V3M5Q3RQaUNPRkVMSGVodFpYdWtZN3BsZ05QV1JjalFEUT09Cg==",
+      "url": "https://github.com/alpha031117/stash-hub/releases/download/v0.4.0/StashHub_0.4.0_x64-setup.exe"
     }
+  }
 }

@@ -3,11 +3,11 @@ import { useGoogleConnected, useGoogleMeetings } from '@/hooks/useGoogleCalendar
 import { KpiCards } from '@/components/dashboard/KpiCards'
 import { ThroughputChart } from '@/components/dashboard/ThroughputChart'
 import { WipChart } from '@/components/dashboard/WipChart'
-import { UpcomingDeadlines } from '@/components/dashboard/UpcomingDeadlines'
+import { TodoTasks } from '@/components/dashboard/TodoTasks'
 import { MeetingsWidget } from '@/components/dashboard/MeetingsWidget'
 
 export function Dashboard() {
-  const { isLoading, kpi, throughputData, wipData, upcomingDeadlines, companies, activeCompanyId } =
+  const { isLoading, kpi, throughputData, wipData, todoTasks, companies, activeCompanyId } =
     useDashboardData()
 
   const { data: googleConnected = false } = useGoogleConnected()
@@ -36,7 +36,7 @@ export function Dashboard() {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <UpcomingDeadlines tasks={upcomingDeadlines} />
+          <TodoTasks tasks={todoTasks} />
           {googleConnected && (
             <MeetingsWidget
               meetings={meetings}

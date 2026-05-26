@@ -13,9 +13,16 @@ import {
 import { supabase } from '@/lib/supabase'
 import { useUiStore } from '@/stores/uiStore'
 import { useCompanies, type Company } from '@/hooks/useCompanies'
-import type { Task } from '@/hooks/useTasks'
+import type { Task, TaskPriority } from '@/hooks/useTasks'
 
 type ProjectRow = { id: string; name: string; company_id: string }
+
+const PRIORITY_RANK: Record<TaskPriority, number> = {
+  urgent: 0,
+  high: 1,
+  medium: 2,
+  low: 3,
+}
 
 export type TaskWithProject = Task & { project: ProjectRow }
 export type ThroughputEntry = { [key: string]: string | number }
@@ -167,21 +174,25 @@ export function useDashboardData() {
 
   const wipData = buildWipData(filtered, companies, activeCompanyId)
 
-  const upcomingDeadlines = filtered
-    .filter((t) => {
-      if (!t.due_date || t.status === 'done') return false
-      const due = parseISO(t.due_date)
-      return due >= today && due <= weekEnd
+  // Every to-do task across all projects in the active organization,
+  // ordered by priority then by due date (dated tasks first).
+  const todoTasks = filtered
+    .filter((t) => t.status === 'todo')
+    .sort((a, b) => {
+      const p = PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority]
+      if (p !== 0) return p
+      if (a.due_date && b.due_date) return a.due_date.localeCompare(b.due_date)
+      if (a.due_date) return -1
+      if (b.due_date) return 1
+      return 0
     })
-    .sort((a, b) => a.due_date!.localeCompare(b.due_date!))
-    .slice(0, 8)
 
   return {
     isLoading,
     kpi: { openTasks, dueSoon, overdue, completedThisWeek },
     throughputData,
     wipData,
-    upcomingDeadlines,
+    todoTasks,
     companies,
     activeCompanyId,
   }

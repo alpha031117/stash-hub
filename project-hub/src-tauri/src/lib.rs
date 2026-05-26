@@ -1,5 +1,7 @@
+mod claude_code;
 mod google;
 
+use claude_code::{cc_list_projects, cc_mavis_brain, cc_project_detail, cc_status};
 use google::{google_disconnect, google_exchange_code, google_fetch_meetings, google_is_connected};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -24,6 +26,10 @@ pub fn run() {
             google_exchange_code,
             google_fetch_meetings,
             google_disconnect,
+            cc_list_projects,
+            cc_project_detail,
+            cc_mavis_brain,
+            cc_status,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

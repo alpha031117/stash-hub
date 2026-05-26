@@ -1,4 +1,4 @@
-import { Calendar, Check, Loader2, Unlink, Building2 } from 'lucide-react'
+import { Bot, Calendar, Check, Loader2, Unlink, Building2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useUiStore } from '@/stores/uiStore'
@@ -8,6 +8,7 @@ import {
   useGoogleConnect,
   useGoogleDisconnect,
 } from '@/hooks/useGoogleCalendar'
+import { inTauriApp, useCcStatus } from '@/hooks/useClaudeCode'
 
 function GoogleCalendarCard() {
   const { data: connected = false, isLoading: checkingConnection } = useGoogleConnected()
@@ -78,6 +79,58 @@ function GoogleCalendarCard() {
   )
 }
 
+// Claude Code is a machine-global integration (reads ~/.claude locally), so it
+// renders regardless of the active company — unlike the Google card above.
+function ClaudeCodeCard() {
+  const { data: status, isLoading, isError, error } = useCcStatus()
+
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm font-semibold flex items-center gap-2">
+          <Bot className="size-4" />
+          Claude Code
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm text-muted-foreground">
+          Reads your local Claude Code activity from{' '}
+          <code className="bg-muted px-1 rounded">~/.claude</code>. View it on the Claude Code
+          page.
+        </p>
+
+        {!inTauriApp ? (
+          <p className="text-xs text-muted-foreground">
+            Only available in the desktop app — the browser preview can't read local files.
+          </p>
+        ) : isLoading ? (
+          <Loader2 className="size-4 animate-spin text-muted-foreground" />
+        ) : isError ? (
+          <p className="text-sm text-destructive">
+            Couldn't check: {error instanceof Error ? error.message : String(error)}
+          </p>
+        ) : status?.available ? (
+          <div className="space-y-1">
+            <span className="flex items-center gap-1.5 text-sm text-green-600 font-medium">
+              <Check className="size-4" />
+              Connected
+            </span>
+            <p className="text-xs text-muted-foreground">
+              {status.projectCount} project{status.projectCount === 1 ? '' : 's'} found ·{' '}
+              {status.mavisInstalled ? 'Mavis brain detected' : 'no Mavis brain'}
+            </p>
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Not detected — no <code className="bg-muted px-1 rounded">~/.claude</code> directory on
+            this machine.
+          </p>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
 export function Settings() {
   const activeCompanyId = useUiStore((s) => s.activeCompanyId)
   const { data: companies = [] } = useCompanies()
@@ -90,7 +143,7 @@ export function Settings() {
       {!activeCompanyId ? (
         <div className="flex items-center gap-3 p-4 rounded-lg border border-dashed text-sm text-muted-foreground">
           <Building2 className="size-5 shrink-0" />
-          Select a company from the sidebar to configure its integrations.
+          Select a company from the sidebar to configure per-company integrations.
         </div>
       ) : (
         <>
@@ -107,6 +160,8 @@ export function Settings() {
           <GoogleCalendarCard />
         </>
       )}
+
+      <ClaudeCodeCard />
     </div>
   )
 }

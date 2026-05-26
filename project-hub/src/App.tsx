@@ -11,6 +11,7 @@ import { Signup } from '@/pages/Signup'
 import { Settings } from '@/pages/Settings'
 import { Standup } from '@/pages/Standup'
 import { Notes } from '@/pages/Notes'
+import { ClaudeCode } from '@/pages/ClaudeCode'
 
 function App() {
   useAppUpdater()
@@ -75,6 +76,16 @@ function App() {
             <ProtectedRoute>
               <AppLayout>
                 <Notes />
+              </AppLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/claude-code"
+          element={
+            <ProtectedRoute>
+              <AppLayout>
+                <ClaudeCode />
               </AppLayout>
             </ProtectedRoute>
           }

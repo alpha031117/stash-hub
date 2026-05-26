@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets / signing
+# The Tauri updater minisign private key — must NEVER be committed. The literal
+# `~` folder catches the case where `tauri signer generate -w ~/.tauri/...` was
+# run in a shell that didn't expand `~` (creates a folder called "~" in cwd).
+~/
+.tauri/
+*.key
+*.key.pub
+.env
+.env.local
+.env.*.local
