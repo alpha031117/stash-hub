@@ -97,7 +97,7 @@ function ClaudeCodeCard() {
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground">
           Reads your local Claude Code activity from{' '}
-          <code className="bg-muted px-1 rounded">~/.claude</code>. View it on the Claude Code
+          <code className="bg-muted px-1 rounded">~/.claude</code>. View it on the Claude's Session
           page.
         </p>
 
@@ -152,12 +152,12 @@ function MavisRagCard() {
       <CardHeader className="pb-2">
         <CardTitle className="text-sm font-semibold flex items-center gap-2">
           <Brain className="size-4" />
-          Mavis RAG
+          Stash RAG
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground">
-          Local vector index of your Mavis brain. Powers the{' '}
+          Local vector index of your brain. Powers the{' '}
           <code className="bg-muted px-1 rounded">/chat</code> page.
         </p>
 
@@ -168,8 +168,8 @@ function MavisRagCard() {
             <p className="text-sm text-muted-foreground">Service not running.</p>
             <p className="text-xs text-muted-foreground">
               Start with{' '}
-              <code className="bg-muted px-1 rounded">python -m mavis_rag serve</code> in{' '}
-              <code className="bg-muted px-1 rounded">C:\Users\alpha\Documents\Self\mavis-rag</code> · brain at{' '}
+              <code className="bg-muted px-1 rounded">python -m stash_rag serve</code> in{' '}
+              <code className="bg-muted px-1 rounded">C:\Users\alpha\Documents\Stash\stash-rag</code> · brain at{' '}
               <code className="bg-muted px-1 rounded">C:\Users\alpha\MavisCode</code>.
             </p>
           </div>

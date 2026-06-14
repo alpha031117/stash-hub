@@ -8,8 +8,8 @@ const NAV = [
   { to: '/projects', icon: FolderKanban, label: 'Projects' },
   { to: '/standup', icon: Megaphone, label: 'Stand-up' },
   { to: '/notes', icon: NotebookPen, label: 'Notes' },
-  { to: '/claude-code', icon: Bot, label: 'Claude Code' },
-  { to: '/chat', icon: MessageSquare, label: 'Mavis Chat' },
+  { to: '/claude-code', icon: Bot, label: "Stasher's Memory" },
+  { to: '/chat', icon: MessageSquare, label: 'Stasher' },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ]
 

@@ -1,0 +1,16 @@
+services:
+  pgvector:
+    image: pgvector/pgvector:pg17
+    container_name: mavis-pgvector
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mavis
+      POSTGRES_PASSWORD: mavis
+      POSTGRES_DB: mavis
+    ports:
+      - "5433:5432"   # 5433 on host to avoid clashing with any local Postgres
+    volumes:
+      - mavis_pgdata:/var/lib/postgresql/data
+
+volumes:
+  mavis_pgdata:

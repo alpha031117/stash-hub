@@ -18,11 +18,11 @@ function ServiceOffline() {
   return (
     <Card>
       <CardContent className="py-10 text-center space-y-2">
-        <p className="text-sm font-medium">mavis-rag service not running</p>
+        <p className="text-sm font-medium">stash-rag service not running</p>
         <p className="text-xs text-muted-foreground">
           Start it with{' '}
-          <code className="bg-muted px-1 rounded">python -m mavis_rag serve</code> in{' '}
-          <code className="bg-muted px-1 rounded">C:\Users\alpha\Documents\Self\mavis-rag</code>.
+          <code className="bg-muted px-1 rounded">python -m stash_rag serve</code> in{' '}
+          <code className="bg-muted px-1 rounded">C:\Users\alpha\Documents\Stash\stash-rag</code>.
         </p>
       </CardContent>
     </Card>
@@ -42,7 +42,7 @@ function ProjectFilter({
     <select
       value={value ?? ''}
       onChange={(e) => onChange(e.target.value || null)}
-      className="h-8 rounded-md border bg-background px-2 text-xs text-muted-foreground"
+      className="h-8 rounded-md border bg-background pl-2.5 pr-6 text-xs text-muted-foreground"
     >
       <option value="">All projects</option>
       {projects.map((p) => (
@@ -200,7 +200,7 @@ export function Chat() {
               <p className="text-xs text-muted-foreground">
                 {status
                   ? `${status.chunks} chunks · ${status.checkpoints} checkpoints indexed`
-                  : 'Connecting to mavis-rag…'}
+                  : 'Connecting to stash-rag…'}
               </p>
             </div>
             <div className="flex flex-wrap gap-2 justify-center max-w-md">
@@ -282,7 +282,7 @@ function Header({
     <div className="flex items-center justify-between gap-2 shrink-0">
       <div className="flex items-center gap-2">
         <MessageSquare className="size-5" />
-        <h1 className="text-xl font-semibold">Mavis Chat</h1>
+        <h1 className="text-xl font-semibold">Stasher</h1>
         <span className="text-sm text-muted-foreground">· RAG over your brain</span>
       </div>
       <div className="flex items-center gap-2">

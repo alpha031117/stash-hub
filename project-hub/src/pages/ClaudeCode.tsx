@@ -78,7 +78,7 @@ export function ClaudeCode() {
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Bot className="size-5" />
-          <h1 className="text-xl font-semibold">Claude Code</h1>
+          <h1 className="text-xl font-semibold">Stasher's Memory</h1>
           <span className="text-sm text-muted-foreground">· registered projects</span>
         </div>
         <Button variant="ghost" size="sm" onClick={() => refetch()}>

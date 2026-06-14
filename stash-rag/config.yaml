@@ -1,0 +1,56 @@
+# mavis-rag — configuration
+# The brain markdown is the source of truth; this service derives a vector +
+# structured index from it. See rag-chat-implementation.md in the Stash repo.
+
+brain:
+  # Auto-discovered from ~/.claude/commands/mavis.md. Set a path here to override.
+  root: C:/Users/alpha/MavisCode
+  # Identity files (profile/preferences/personality) are personal; off by default.
+  include_identity: false
+
+database:
+  # Local pgvector container — `docker compose up -d` (see docker-compose.yml).
+  dsn: postgresql://mavis:mavis@localhost:5433/mavis
+
+embedding:
+  # Local, offline, no API cost. fastembed (ONNX). bge-small = 384 dims.
+  model: BAAI/bge-small-en-v1.5
+  dim: 384
+
+reconcile:
+  # Periodic full-brain reconcile so the index converges even if an event is missed.
+  interval_minutes: 30
+
+web:
+  host: 127.0.0.1
+  port: 8782
+
+# ── Phase 2/3 (not used by the Phase-1 indexer yet) ──────────────────────────
+llm:
+  chatbot:
+    provider: openai            # OpenRouter is OpenAI-compatible
+    model: qwen/qwen3-8b
+    max_tokens: 4096
+    base_url: https://openrouter.ai/api/v1
+    api_key_env: OPENROUTER_API_KEY   # env var NAME, not the key (key lives in .env)
+    default_headers:
+      HTTP-Referer: https://github.com/mavis-rag
+      X-OpenRouter-Title: mavis-rag
+
+# Phase 4 — roots to watch for unregistered projects
+watcher:
+  debounce_seconds: 90
+  candidate_roots:
+    - C:/Users/alpha/Documents   
+
+# ── Phase 3 — LLM for the UPDATE graph (paired-write checkpoint drafting) ─────
+# Separate from chatbot so model/cost can differ (smaller model is fine here).
+updater:
+  provider: openai              # OpenRouter is OpenAI-compatible
+  model: qwen/qwen3-8b
+  max_tokens: 2048
+  base_url: https://openrouter.ai/api/v1
+  api_key_env: OPENROUTER_API_KEY
+  default_headers:
+    HTTP-Referer: https://github.com/mavis-rag
+    X-OpenRouter-Title: mavis-rag

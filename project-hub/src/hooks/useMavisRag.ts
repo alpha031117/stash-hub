@@ -44,7 +44,7 @@ async function ragFetch<T>(path: string, opts?: RequestInit): Promise<T> {
     headers: { 'Content-Type': 'application/json' },
     ...opts,
   })
-  if (!res.ok) throw new Error(`mavis-rag ${res.status} ${path}`)
+  if (!res.ok) throw new Error(`stash-rag ${res.status} ${path}`)
   return res.json() as Promise<T>
 }
 
