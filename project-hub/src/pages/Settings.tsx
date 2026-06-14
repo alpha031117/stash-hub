@@ -1,4 +1,5 @@
-import { Bot, Calendar, Check, Loader2, Unlink, Building2 } from 'lucide-react'
+import { useState } from 'react'
+import { Bot, Brain, Calendar, Check, Loader2, RefreshCw, Unlink, Building2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useUiStore } from '@/stores/uiStore'
@@ -9,6 +10,7 @@ import {
   useGoogleDisconnect,
 } from '@/hooks/useGoogleCalendar'
 import { inTauriApp, useCcStatus } from '@/hooks/useClaudeCode'
+import { useRagStatus, useUpdateAll, useReindex, useRagEvents } from '@/hooks/useMavisRag'
 
 function GoogleCalendarCard() {
   const { data: connected = false, isLoading: checkingConnection } = useGoogleConnected()
@@ -95,7 +97,7 @@ function ClaudeCodeCard() {
       <CardContent className="space-y-3">
         <p className="text-sm text-muted-foreground">
           Reads your local Claude Code activity from{' '}
-          <code className="bg-muted px-1 rounded">~/.claude</code>. View it on the Claude Code
+          <code className="bg-muted px-1 rounded">~/.claude</code>. View it on the Claude's Session
           page.
         </p>
 
@@ -126,6 +128,111 @@ function ClaudeCodeCard() {
             this machine.
           </p>
         )}
+      </CardContent>
+    </Card>
+  )
+}
+
+function MavisRagCard() {
+  const { data: status, isLoading, isError, refetch } = useRagStatus()
+  const updateAll = useUpdateAll()
+  const reindex = useReindex()
+  const [syncingProject, setSyncingProject] = useState<string | null>(null)
+
+  useRagEvents((evt) => {
+    if (evt.type === 'sync_started') setSyncingProject(evt.project)
+    if (evt.type === 'sync_done' || evt.type === 'error') {
+      setSyncingProject(null)
+      refetch()
+    }
+  })
+
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm font-semibold flex items-center gap-2">
+          <Brain className="size-4" />
+          Stash RAG
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm text-muted-foreground">
+          Local vector index of your brain. Powers the{' '}
+          <code className="bg-muted px-1 rounded">/chat</code> page.
+        </p>
+
+        {isLoading ? (
+          <Loader2 className="size-4 animate-spin text-muted-foreground" />
+        ) : isError ? (
+          <div className="space-y-1">
+            <p className="text-sm text-muted-foreground">Service not running.</p>
+            <p className="text-xs text-muted-foreground">
+              Start with{' '}
+              <code className="bg-muted px-1 rounded">python -m stash_rag serve</code> in{' '}
+              <code className="bg-muted px-1 rounded">C:\Users\alpha\Documents\Stash\stash-rag</code> · brain at{' '}
+              <code className="bg-muted px-1 rounded">C:\Users\alpha\MavisCode</code>.
+            </p>
+          </div>
+        ) : status ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-1.5 text-sm text-green-600 font-medium">
+              <Check className="size-4" />
+              Connected
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {status.chunks} chunks · {status.checkpoints} checkpoints · {status.files} files
+              {status.last_indexed_at && (
+                <> · last indexed {new Date(status.last_indexed_at).toLocaleString()}</>
+              )}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Brain: {status.brain_found ? status.brain_root : 'not found'} ·{' '}
+              {status.embedding_model}
+            </p>
+            {status.watching.length > 0 && (
+              <p className="text-xs text-muted-foreground">
+                Watching: {status.watching.join(', ')}
+              </p>
+            )}
+            {syncingProject && (
+              <p className="text-xs text-amber-600 flex items-center gap-1">
+                <Loader2 className="size-3 animate-spin" />
+                Updating {syncingProject}…
+              </p>
+            )}
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => updateAll.mutate()}
+                disabled={updateAll.isPending || reindex.isPending}
+              >
+                {updateAll.isPending ? (
+                  <Loader2 className="size-3.5 mr-1.5 animate-spin" />
+                ) : (
+                  <RefreshCw className="size-3.5 mr-1.5" />
+                )}
+                Sync All
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => reindex.mutate()}
+                disabled={updateAll.isPending || reindex.isPending}
+              >
+                {reindex.isPending ? (
+                  <Loader2 className="size-3.5 mr-1.5 animate-spin" />
+                ) : (
+                  <RefreshCw className="size-3.5 mr-1.5" />
+                )}
+                Re-index
+              </Button>
+            </div>
+            {(updateAll.isSuccess || reindex.isSuccess) && (
+              <p className="text-xs text-green-600">Done.</p>
+            )}
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   )
@@ -162,6 +269,7 @@ export function Settings() {
       )}
 
       <ClaudeCodeCard />
+      <MavisRagCard />
     </div>
   )
 }
