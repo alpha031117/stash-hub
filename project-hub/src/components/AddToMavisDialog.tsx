@@ -128,7 +128,7 @@ export function AddToMavisDialog() {
           </div>
           <div className="space-y-1">
             <Label>Type</Label>
-            <Select value={type} onValueChange={setType}>
+            <Select value={type} onValueChange={(v) => setType(v ?? 'software')}>
               <SelectTrigger className="w-full">
                 <SelectValue />
               </SelectTrigger>
