@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, FolderKanban, Megaphone, NotebookPen, Bot, Settings } from 'lucide-react'
+import { LayoutDashboard, FolderKanban, Megaphone, NotebookPen, Bot, MessageSquare, Settings } from 'lucide-react'
 import { CompanySwitcher } from '@/components/layout/CompanySwitcher'
 import { cn } from '@/lib/utils'
 
@@ -9,6 +9,7 @@ const NAV = [
   { to: '/standup', icon: Megaphone, label: 'Stand-up' },
   { to: '/notes', icon: NotebookPen, label: 'Notes' },
   { to: '/claude-code', icon: Bot, label: 'Claude Code' },
+  { to: '/chat', icon: MessageSquare, label: 'Mavis Chat' },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ]
 
